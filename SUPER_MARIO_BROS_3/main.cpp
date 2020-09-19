@@ -2,12 +2,7 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 
-#include <signal.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#include <time.h>
+#include "Game.h"
 
 #define WINDOW_CLASS_NAME L"SUPER MARIO BROS 3"
 #define MAIN_WINDOW_TITLE L"MAIN SCENE"
@@ -18,20 +13,7 @@
 
 #define MAX_FRAME_RATE 60
 
-LPDIRECT3D9 d3d = NULL;
-LPDIRECT3DDEVICE9 d3ddv = NULL;
-LPDIRECT3DSURFACE9 backBuffer = NULL;
-LPD3DXSPRITE spriteHandler = NULL;
-
-void DebugOut(wchar_t *fmt, ...)
-{
-	va_list argp;
-	va_start(argp, fmt);
-	wchar_t dbg_out[4096];
-	vswprintf_s(dbg_out, fmt, argp);
-	va_end(argp);
-	OutputDebugString(dbg_out);
-}
+CGame*game;
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -46,53 +28,15 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
-void InitDirectX(HWND hWnd)
-{
-	LPDIRECT3D9 d3d = Direct3DCreate9(D3D_SDK_VERSION);
-
-	D3DPRESENT_PARAMETERS d3dpp;
-
-	ZeroMemory(&d3dpp, sizeof(d3dpp));
-
-	d3dpp.Windowed = TRUE;
-	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
-	d3dpp.BackBufferFormat = D3DFMT_X8R8G8B8;
-	d3dpp.BackBufferCount = 1;
-
-	RECT r;
-	GetClientRect(hWnd, &r);	// retrieve window width & height 
-
-	d3dpp.BackBufferHeight = r.bottom + 1;
-	d3dpp.BackBufferWidth = r.right + 1;
-
-	d3d->CreateDevice(
-		D3DADAPTER_DEFAULT,
-		D3DDEVTYPE_HAL,
-		hWnd,
-		D3DCREATE_SOFTWARE_VERTEXPROCESSING,
-		&d3dpp,
-		&d3ddv);
-
-	if (d3ddv == NULL)
-	{
-		OutputDebugString(L"[ERROR] CreateDevice failed\n");
-		return;
-	}
-
-	d3ddv->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backBuffer);
-
-	// Initialize sprite helper from Direct3DX helper library
-	D3DXCreateSprite(d3ddv, &spriteHandler);
-
-	OutputDebugString(L"[INFO] InitGame is done\n");
-
-}
 void Update(DWORD dt) {
 
 }
 
 void Render()
 {
+	LPDIRECT3DDEVICE9 d3ddv = game->GetDirect3DDevice();
+	LPDIRECT3DSURFACE9 backBuffer = game->GetBackBuffer();
+	LPD3DXSPRITE spriteHandler = game->GetSpriteHandler();
 	if (d3ddv->BeginScene())
 	{
 		// Clear screen (back buffer) with a color
@@ -100,9 +44,6 @@ void Render()
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
-		//D3DXVECTOR3 p(brick_x, 100.0f, 0);
-
-		//D3DXVECTOR3 p(100.0f,10.0f, 0);
 		spriteHandler->Draw(NULL, NULL, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
 
 		spriteHandler->End();
@@ -201,7 +142,8 @@ HWND CreateGameWindow(HINSTANCE hInstance, int nCmdShow, int ScreenWidth, int Sc
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	HWND hWnd = CreateGameWindow(hInstance, nCmdShow, SCREEN_WIDTH, SCREEN_HEIGHT);
-	InitDirectX(hWnd);
+	game = CGame::GetInstance();
+	game->Init(hWnd);
 
 	Run();
 	
