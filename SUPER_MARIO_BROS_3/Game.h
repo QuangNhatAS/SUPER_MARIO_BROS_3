@@ -12,6 +12,9 @@ class CGame
 	LPD3DXSPRITE spriteHandler = NULL;
 public:
 	void Init(HWND hWnd);
+	LPDIRECT3DTEXTURE9 LoadTexture(LPCWSTR texturePath);
+
+	void Draw(float x, float y, LPDIRECT3DTEXTURE9 texture);
 
 	LPDIRECT3DDEVICE9 GetDirect3DDevice() { return this->d3ddv; }
 	LPDIRECT3DSURFACE9 GetBackBuffer() { return this->backBuffer; }

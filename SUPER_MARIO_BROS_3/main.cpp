@@ -3,18 +3,22 @@
 #include <d3dx9.h>
 
 #include "Game.h"
+#include "GameObject.h"
 
 #define WINDOW_CLASS_NAME L"SUPER MARIO BROS 3"
 #define MAIN_WINDOW_TITLE L"MAIN SCENE"
+
+#define BRICK_TEXTURE_PATH L"mario.png"
+
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
 
 #define BACKGROUND_COLOR D3DCOLOR_XRGB(0, 0, 0)
 
-#define MAX_FRAME_RATE 60
+#define MAX_FRAME_RATE 120
 
 CGame*game;
-
+CBrick*brick;
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) {
@@ -28,8 +32,13 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
-void Update(DWORD dt) {
+void LoadResource() {
+	brick = new CBrick(BRICK_TEXTURE_PATH);
+	brick->SetPosition(0, 50);
+}
 
+void Update(DWORD dt) {
+	brick->Update(dt);
 }
 
 void Render()
@@ -44,7 +53,7 @@ void Render()
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
-		spriteHandler->Draw(NULL, NULL, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
+		brick->Render();
 
 		spriteHandler->End();
 		d3ddv->EndScene();
@@ -144,6 +153,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	HWND hWnd = CreateGameWindow(hInstance, nCmdShow, SCREEN_WIDTH, SCREEN_HEIGHT);
 	game = CGame::GetInstance();
 	game->Init(hWnd);
+	LoadResource();
 
 	Run();
 	
