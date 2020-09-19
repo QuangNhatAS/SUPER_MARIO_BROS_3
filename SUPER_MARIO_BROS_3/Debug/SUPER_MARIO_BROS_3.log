@@ -1,0 +1,3 @@
+﻿  main.cpp
+LINK : warning LNK4076: invalid incremental status file 'E:\Game\SUPER_MARIO_BROS_3\Debug\SUPER_MARIO_BROS_3.ilk' (which will be deleted); linking nonincrementally
+  SUPER_MARIO_BROS_3.vcxproj -> E:\Game\SUPER_MARIO_BROS_3\Debug\SUPER_MARIO_BROS_3.exe
