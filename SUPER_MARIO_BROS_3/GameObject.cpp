@@ -1,19 +1,22 @@
 #include "GameObject.h"
 #include "Game.h"
-CGameObject::CGameObject(LPCWSTR filePath) {
+#include "Sprites.h"
+CGameObject::CGameObject() {
 	x = y = 0;
-	texture = CGame::GetInstance()->LoadTexture(filePath);
+	vx = 0.07f;
 }
 void CGameObject::Update(DWORD dt) {
-
+	x += vx * dt;
+	if ((vx > 0 && x > 290) || (vx < 0 && x < 0)) vx = -vx;
 }
 void CGameObject::Render() {
-	CGame::GetInstance()->Draw(x, y, texture);
+	LPANIMATION ani;
+	if (vx > 0) ani = CAnimations::GetInstance()->Get(500);
+	else ani = CAnimations::GetInstance()->Get(501);
+
+	ani->Render(x, y);
 }
-void CBrick::Update(DWORD dt) {
-	x += 0.1f * dt;
-	if (x > 320) x = 0;
-}
+
 CGameObject::~CGameObject() {
 	if (texture != NULL) texture->Release();
 }
