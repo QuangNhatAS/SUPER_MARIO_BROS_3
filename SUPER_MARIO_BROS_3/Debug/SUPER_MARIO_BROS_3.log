@@ -1,2 +1,7 @@
-﻿  main.cpp
+﻿  Mario.cpp
+  main.cpp
+  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+e:\game\super_mario_bros_3\super_mario_bros_3\game.h(6): warning C4005: 'DIRECTINPUT_VERSION': macro redefinition
+  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h(42): note: see previous definition of 'DIRECTINPUT_VERSION'
+  Generating Code...
   SUPER_MARIO_BROS_3.vcxproj -> E:\Game\SUPER_MARIO_BROS_3\Debug\SUPER_MARIO_BROS_3.exe

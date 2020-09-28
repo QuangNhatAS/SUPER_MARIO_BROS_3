@@ -1,22 +1,25 @@
 #include "GameObject.h"
 #include "Game.h"
 #include "Sprites.h"
+vector<LPANIMATION> CGameObject::animations;
 CGameObject::CGameObject() {
 	x = y = 0;
 	vx = 0.07f;
+	nx = 1;
+}
+void CGameObject::AddAnimation(int aniId)
+{
+	LPANIMATION ani = CAnimations::GetInstance()->Get(aniId);
+	animations.push_back(ani);
 }
 void CGameObject::Update(DWORD dt) {
 	x += vx * dt;
-	if ((vx > 0 && x > 290) || (vx < 0 && x < 0)) vx = -vx;
+	y += vy * dt;
 }
 void CGameObject::Render() {
-	LPANIMATION ani;
-	if (vx > 0) ani = CAnimations::GetInstance()->Get(500);
-	else ani = CAnimations::GetInstance()->Get(501);
-
-	ani->Render(x, y);
+	
 }
 
 CGameObject::~CGameObject() {
-	if (texture != NULL) texture->Release();
+	
 }
