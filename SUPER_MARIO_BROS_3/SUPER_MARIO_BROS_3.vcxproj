@@ -127,18 +127,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="debug.cpp" />
+    <ClCompile Include="Animations.cpp" />
+    <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="Koopas.cpp" />
+    <ClCompile Include="PlayScene.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mario.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="debug.h" />
+    <ClInclude Include="Animations.h" />
+    <ClInclude Include="Brick.h" />
+    <ClInclude Include="KeyEventHandler.h" />
+    <ClInclude Include="Koopas.h" />
+    <ClInclude Include="PlayScene.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="Utils.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Goomba.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Textures.h" />
