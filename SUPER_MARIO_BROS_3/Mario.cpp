@@ -3,6 +3,17 @@
 
 
 
+CMario::CMario(float x, float y) : CGameObject()
+{
+	level = MARIO_LEVEL_BIG;
+	untouchable = 0;
+	SetState(MARIO_STATE_IDLE);
+	start_x = x;
+	start_y = y;
+	this->x = x;
+	this->y = y;
+}
+
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt);
@@ -121,6 +132,14 @@ void CMario::SetState(int state)
 		vy = -MARIO_DIE_DEFLECT_SPEED;
 		break;
 	}
+}
+
+void CMario::Reset()
+{
+	SetState(MARIO_STATE_IDLE);
+	SetLevel(MARIO_LEVEL_BIG);
+	SetPosition(start_x, start_y);
+	SetSpeed(0, 0);
 }
 
 void CMario::GetBoundingBox(float & left, float & top, float & right, float & bottom)

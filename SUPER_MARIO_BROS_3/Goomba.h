@@ -16,6 +16,7 @@ class CGoomba : public CGameObject {
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObject);
 	virtual void Render();
 public:
+	CGoomba();
 	virtual void SetState(int state);
 };
 

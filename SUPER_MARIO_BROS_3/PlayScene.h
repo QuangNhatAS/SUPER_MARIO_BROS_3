@@ -8,6 +8,7 @@
 #include "Brick.h"
 #include "Goomba.h"
 #include "Koopas.h"
+#include "Portal.h"
 
 class CPlayScene : public CScene
 {

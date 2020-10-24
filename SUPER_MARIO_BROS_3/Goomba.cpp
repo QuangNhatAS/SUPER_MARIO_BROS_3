@@ -1,5 +1,10 @@
 #include "Goomba.h"
 
+CGoomba::CGoomba()
+{
+	SetState(GOOMBA_STATE_WALKING);
+}
+
 void CGoomba::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
 	left = x;
@@ -33,8 +38,9 @@ void CGoomba::Render()
 	if (state == GOOMBA_STATE_DIE)
 		ani = GOOMBA_ANI_DIE;
 
-	animations[ani]->Render(x, y);
+	animation_set->at(ani)->Render(x, y);
 }
+
 
 void CGoomba::SetState(int state)
 {
